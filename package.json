@@ -1,0 +1,25 @@
+{
+  "name": "lazy-di",
+  "version": "0.0.0",
+  "description": "Lazy Dependency Injection",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jue89/node-lazy-di.git"
+  },
+  "keywords": [
+    "di"
+  ],
+  "author": "Juergen Fitschen <me@jue.yt>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jue89/node-lazy-di/issues"
+  },
+  "homepage": "https://github.com/jue89/node-lazy-di#readme"
+}
