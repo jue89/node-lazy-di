@@ -2,7 +2,9 @@
   "name": "lazy-di",
   "version": "0.0.0",
   "description": "Lazy Dependency Injection",
-  "main": "index.js",
+  "exports": {
+    "./lib": "./lib.mjs"
+  },
   "directories": {
     "test": "test"
   },
