@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "lint": "eslint --config .eslintrc.js *.mjs test/*.mjs"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,13 @@
   "bugs": {
     "url": "https://github.com/jue89/node-lazy-di/issues"
   },
-  "homepage": "https://github.com/jue89/node-lazy-di#readme"
+  "homepage": "https://github.com/jue89/node-lazy-di#readme",
+  "devDependencies": {
+    "eslint": "^8.34.0",
+    "pre-commit": "^1.2.2"
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ]
 }
