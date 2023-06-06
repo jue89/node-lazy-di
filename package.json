@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Lazy Dependency Injection",
   "exports": {
+    "./helper": "./helper.mjs",
     "./lib": "./lib.mjs"
   },
   "directories": {
