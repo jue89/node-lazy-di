@@ -4,7 +4,8 @@
   "description": "Lazy Dependency Injection",
   "exports": {
     "./helper": "./helper.mjs",
-    "./lib": "./lib.mjs"
+    "./lib": "./lib.mjs",
+    "./loader": "./loader.mjs"
   },
   "directories": {
     "test": "test"
