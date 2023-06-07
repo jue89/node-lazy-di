@@ -13,7 +13,10 @@ class Leaf {
 		assert(typeof provides === 'string', 'Item provides must be a string');
 		if (requires === undefined) requires = [];
 		assert(Array.isArray(requires), 'Item requires must be an array of strings');
-		requires.forEach((r) => assert(typeof r === 'string', 'Item requires must be an array of strings'));
+		requires.forEach((r) => {
+			const type = typeof r;
+			assert(type === 'string' || type === 'function', 'Item requires must be an array of strings or functions');
+		});
 
 		this.factory = factory;
 		this.provides = provides;
@@ -74,7 +77,8 @@ export default class Library {
 
 	async _initLeaf (leaf, name) {
 		if (leaf.instance === undefined) {
-			const deps = await Promise.all(leaf.requires.map((r) => this.get(r)));
+			const reqs = leaf.requires.map((r) => typeof r === 'function' ? r(name) : r);
+			const deps = await Promise.all(reqs.map((r) => this.get(r)));
 			leaf.instance = await leaf.factory(deps, name);
 		}
 		return leaf.instance;

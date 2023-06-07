@@ -123,3 +123,10 @@ test('control overriding dependencies', async () => {
 
 	assert.equal(await lib.get('a'), 3);
 });
+
+test('dynamic requires', async () => {
+	const lib = new Library();
+	lib.add({provides: 'foo::*', factory: (deps, name) => name});
+	lib.add({provides: 'bar::*', requires: [(name) => `foo::${name}`], factory: ([req]) => req});
+	assert.equal(await lib.get('bar::a'), 'a');
+});
