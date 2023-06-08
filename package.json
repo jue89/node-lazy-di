@@ -13,7 +13,11 @@
   },
   "scripts": {
     "test": "node --test",
-    "lint": "eslint --config .eslintrc.js *.mjs test/*.mjs"
+    "lint": "eslint --config .eslintrc.js *.mjs test/*.mjs",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch",
+    "release:major": "standard-version --release-as major"
   },
   "repository": {
     "type": "git",
@@ -30,7 +34,8 @@
   "homepage": "https://github.com/jue89/node-lazy-di#readme",
   "devDependencies": {
     "eslint": "^8.34.0",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "standard-version": "^9.5.0"
   },
   "pre-commit": [
     "lint",
