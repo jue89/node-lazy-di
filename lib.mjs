@@ -37,7 +37,7 @@ class Branch {
 			this[cur] = new Branch();
 		}
 
-		assert(this[cur] instanceof Branch, 'branch not found');
+		assert(this[cur] instanceof Branch, `branch ${cur} not found`);
 
 		return this[cur].fetchBranch(remainder, autoCreate);
 	}
@@ -48,14 +48,14 @@ class Branch {
 	}
 
 	getLeaf (name) {
-		assert(this[name] instanceof Leaf, 'item not found');
+		assert(this[name] instanceof Leaf, `item ${name} not found`);
 		return this[name];
 	}
 
 	addLeaf (name, leaf, {override}) {
 		assert(leaf instanceof Leaf);
 		if (!override) {
-			assert(this[name] === undefined, 'Dependency already provided');
+			assert(this[name] === undefined, `Dependency ${name} already provided`);
 		}
 		this[name] = leaf;
 	}

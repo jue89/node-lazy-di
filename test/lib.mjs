@@ -114,7 +114,7 @@ test('control overriding dependencies', async () => {
 	assert.throws(() => lib.add({
 		provides: 'a',
 		factory: () => 2
-	}), /Dependency already provided/);
+	}), /Dependency a already provided/);
 
 	lib.add({
 		provides: 'a',
