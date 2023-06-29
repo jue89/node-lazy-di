@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/jue89/node-lazy-di/compare/v1.0.0...v1.1.0) (2023-06-29)
+
+
+### Features
+
+* **helper:** provide optional and integer env loader ([126d23a](https://github.com/jue89/node-lazy-di/commit/126d23ac0dbd88631787e34f6caa4732e54f29ab))
+* **lib:** provide context in error messages ([2c3bd40](https://github.com/jue89/node-lazy-di/commit/2c3bd4044d3dcbf801f3be936c54b45312f8b650)), closes [#2](https://github.com/jue89/node-lazy-di/issues/2)
+* **main:** improve base path guessing ([75ad638](https://github.com/jue89/node-lazy-di/commit/75ad63862876732be029f5e9332fb6168709682b)), closes [#3](https://github.com/jue89/node-lazy-di/issues/3)
+
+
+### Bug Fixes
+
+* **main:** explicit import context ([55fb307](https://github.com/jue89/node-lazy-di/commit/55fb307b429d48651ab91d43963963d931c2dc84)), closes [#1](https://github.com/jue89/node-lazy-di/issues/1)
+
 ## 1.0.0 (2023-06-08)
 
 
