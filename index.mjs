@@ -14,13 +14,17 @@ export default async function lazyDI (opts = {}) {
 	const lib = new Library();
 
 	// try to find base path:
-	// 1. caller provided the import context
-	let relDir = opts.importContext && dirname(fileURLToPath(opts.importContext.url));
-	// 2. use the processes entry-point
-	if (!relDir) relDir = getBasePath();
+	// 1. use explicit option
+	let basePath = opts.basePath;
+	// 2. caller provided the import context
+	if (!basePath) basePath = opts.importContext && dirname(fileURLToPath(opts.importContext.url));
+	// 3. use the processes entry-point
+	if (!basePath) basePath = getBasePath();
+	// 4. use cwd
+	if (!basePath) basePath = process.cwd();
 
-	const makeAbsolute = (path) => relDir && !isAbsolute(path)
-		? join(relDir, path)
+	const makeAbsolute = (path) => basePath && !isAbsolute(path)
+		? join(basePath, path)
 		: path;
 
 	addEnvLoader(lib);
