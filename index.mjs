@@ -15,7 +15,7 @@ export default async function lazyDI (opts = {}) {
 
 	// try to find base path:
 	// 1. caller provided the import context
-	let relDir = opts.importContext && dirname(fileURLToPath(opts.importContext.meta.url));
+	let relDir = opts.importContext && dirname(fileURLToPath(opts.importContext.url));
 	// 2. use the processes entry-point
 	if (!relDir) relDir = getBasePath();
 

@@ -120,7 +120,7 @@ import lazydi from 'lazy-di';
 const lib = await lazydi({
     // Context for loading paths relative to this file.
     // If omitted paths are relative to the entry point given to NodeJS.
-    importContext: import,
+    importContext: import.meta,
 
     // If dependencies are provided multiple times, the last loaded will
     // be used. This allows overriding dependencies.
