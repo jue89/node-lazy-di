@@ -78,8 +78,8 @@ export default class Library {
 	async _initLeaf (leaf, name) {
 		if (leaf.instance === undefined) {
 			const reqs = leaf.requires.map((r) => typeof r === 'function' ? r(name) : r);
-			const deps = await Promise.all(reqs.map((r) => this.get(r)));
-			leaf.instance = await leaf.factory(deps, name);
+			leaf.instance = Promise.all(reqs.map((r) => this.get(r)))
+				.then((deps) => leaf.factory(deps, name));
 		}
 		return leaf.instance;
 	}

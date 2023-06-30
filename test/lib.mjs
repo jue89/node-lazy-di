@@ -1,6 +1,6 @@
 import Library from '../lib.mjs';
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import {mock, test} from 'node:test';
 
 test('make sure items provide required parameter', () => {
 	const lib = new Library();
@@ -129,4 +129,17 @@ test('dynamic requires', async () => {
 	lib.add({provides: 'foo::*', factory: (deps, name) => name});
 	lib.add({provides: 'bar::*', requires: [(name) => `foo::${name}`], factory: ([req]) => req});
 	assert.equal(await lib.get('bar::a'), 'a');
+});
+
+test('prevent require race conditions', async () => {
+	const lib = new Library();
+	const factory = mock.fn(() => Symbol());
+	lib.add({provides: 'foo', factory});
+	const [i0, i1] = await Promise.all([
+		lib.get('foo'),
+		lib.get('foo'),
+	]);
+	assert.equal(factory.mock.calls.length, 1);
+	assert.equal(i0, factory.mock.calls[0].result);
+	assert.equal(i1, factory.mock.calls[0].result);
 });
