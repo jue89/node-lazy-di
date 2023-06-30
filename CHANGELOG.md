@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/jue89/node-lazy-di/compare/v1.1.0...v1.1.1) (2023-06-30)
+
+
+### Bug Fixes
+
+* **lib:** race condition if deps are requested concurrently ([d460bcb](https://github.com/jue89/node-lazy-di/commit/d460bcba2d9a30612d0eb94bc12467029a40ca86)), closes [#5](https://github.com/jue89/node-lazy-di/issues/5)
+
 ## [1.1.0](https://github.com/jue89/node-lazy-di/compare/v1.0.0...v1.1.0) (2023-06-29)
 
 
