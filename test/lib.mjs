@@ -143,3 +143,28 @@ test('prevent require race conditions', async () => {
 	assert.equal(i0, factory.mock.calls[0].result);
 	assert.equal(i1, factory.mock.calls[0].result);
 });
+
+test('list lib items', () => {
+	const lib = new Library();
+	lib.add({
+		provides: 'foo',
+		factory: () => {}
+	}).add({
+		provides: 'bar::foo',
+		factory: () => {}
+	}).add({
+		provides: 'bar::baz',
+		factory: () => {}
+	});
+	const list = lib.ls();
+	assert.deepEqual(list.map(([name]) => name), [
+		'foo',
+		'bar::foo',
+		'bar::baz',
+	]);
+	list.forEach(([provides, item]) => {
+		assert(item instanceof Leaf);
+		assert.equal(provides, item.provides);
+	});
+});
+

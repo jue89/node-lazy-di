@@ -102,4 +102,20 @@ export default class Library {
 			return instance;
 		}
 	}
+
+	ls () {
+		function walk (branch, path = []) {
+			return Object.entries(branch).reduce((acc, [key, item]) => {
+				if (item instanceof Branch) {
+					return acc.concat(walk(item, [...path, key]));
+				} else if (item instanceof Leaf) {
+					return acc.concat([[[...path, key], item]]);
+				} else {
+					throw new Error('Invalid item');
+				}
+			}, []);
+		}
+
+		return walk(this.root).map(([path, item]) => [path.join(DELIMITER), item]);
+	}
 }
