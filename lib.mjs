@@ -2,13 +2,23 @@ function assert (condition, message) {
 	if (!condition) throw new Error(message);
 }
 
+const INDENT_SEQ = /^(\n*)[\t ]*/m;
+function trimDocs (docs) {
+	const indentSeq = INDENT_SEQ.exec(docs);
+	if (indentSeq) {
+		const [seq, br] = indentSeq;
+		docs = docs.replace(new RegExp(`${seq}`, 'mg'), br);
+	}
+	return docs.trim().replace(/\n{3,}/g, '\n\n');
+}
+
 export const DELIMITER = '::';
 export const WILDCARD = '*';
 
-class Leaf {
+export class Leaf {
 	constructor (item) {
 		assert(typeof item === 'object', 'Must be an object');
-		let {provides, requires, factory} = item;
+		let {provides, requires, factory, docs} = item;
 		assert(typeof factory === 'function', 'Item factory must be a function');
 		assert(typeof provides === 'string', 'Item provides must be a string');
 		if (requires === undefined) requires = [];
@@ -21,10 +31,24 @@ class Leaf {
 		this.factory = factory;
 		this.provides = provides;
 		this.requires = requires;
+		this.docs = docs;
+	}
+
+	genDocs () {
+		return trimDocs(`
+			## \`${this.provides}\`
+
+			${this.requires.length > 0 ?  trimDocs(`
+				Requires:
+				${this.requires.map((r) => `- \`${r}\``).join('\n')}
+			`) : ''}
+
+			${trimDocs(this.docs || '*Undocumented*')}
+		`);
 	}
 }
 
-class Branch {
+export class Branch {
 	fetchBranch (path, autoCreate = false) {
 		const [cur, ...remainder] = path;
 		if (cur === undefined) {
@@ -117,5 +141,13 @@ export default class Library {
 		}
 
 		return walk(this.root).map(([path, item]) => [path.join(DELIMITER), item]);
+	}
+
+	genDocs (preamble = '# Documentation') {
+		return trimDocs(`
+			${trimDocs(preamble)}
+
+			${this.ls().map(([_name, item]) => item.genDocs()).join('\n\n')}
+		`);
 	}
 }

@@ -1,4 +1,4 @@
-import Library from '../lib.mjs';
+import Library, {Leaf} from '../lib.mjs';
 import assert from 'node:assert/strict';
 import {mock, test} from 'node:test';
 
@@ -166,5 +166,31 @@ test('list lib items', () => {
 		assert(item instanceof Leaf);
 		assert.equal(provides, item.provides);
 	});
+});
+
+test('generate docs', () => {
+	const lib = new Library();
+	lib.add({
+		provides: 'foo',
+		requires: ['bar', 'baz'],
+		factory: () => {},
+		docs: `
+			Super cool feature!
+
+				Foo bar
+		`
+	}).add({
+		provides: 'bar',
+		factory: () => {}
+	});
+
+	const docs = lib.ls().map(([_, leaf]) => leaf.genDocs());
+	assert.deepEqual(docs, [
+		'## `foo`\n\nRequires:\n- `bar`\n- `baz`\n\nSuper cool feature!\n\n\tFoo bar',
+		'## `bar`\n\n*Undocumented*'
+	]);
+
+	const fullDocs = lib.genDocs();
+	console.log([fullDocs]);
 });
 
