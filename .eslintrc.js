@@ -53,6 +53,10 @@ module.exports = {
 		],
 		'space-infix-ops': [
 			'error'
+		],
+		'no-unused-vars': [
+			'error',
+			{ 'args': 'none' }
 		]
 	}
 };
