@@ -172,7 +172,7 @@ test('generate docs', () => {
 	const lib = new Library();
 	lib.add({
 		provides: 'foo',
-		requires: ['bar', 'baz'],
+		requires: ['bar', 'baz', (a) => `bar:${a}`],
 		factory: () => {},
 		docs: `
 			Super cool feature!
@@ -186,11 +186,49 @@ test('generate docs', () => {
 
 	const docs = lib.ls().map(([_, leaf]) => leaf.genDocs());
 	assert.deepEqual(docs, [
-		'## `foo`\n\nRequires:\n- `bar`\n- `baz`\n\nSuper cool feature!\n\n\tFoo bar',
+		'## `foo`\n\nRequires:\n- `bar`\n- `baz`\n- `(a) => \'bar:${a}\'`\n\nSuper cool feature!\n\n\tFoo bar',
 		'## `bar`\n\n*Undocumented*'
 	]);
-
-	const fullDocs = lib.genDocs();
-	console.log([fullDocs]);
 });
 
+test('generate docs with anchors', () => {
+	const lib = new Library();
+	lib.add({
+		provides: 'foo',
+		requires: ['bar::test', 'baz::a', 'bla', (x) => `blub::${x}`],
+		factory: () => {},
+		docs: 'foo docs'
+	}).add({
+		provides: 'bar::*',
+		factory: () => {},
+		docs: 'bar docs'
+	}).add({
+		provides: 'baz::a',
+		factory: () => {},
+		docs: 'baz docs'
+	});
+
+	const docs = lib.genDocs('# My Super Docs');
+	assert.deepEqual(docs, `# My Super Docs
+
+<a name="foo"></a>
+## \`foo\`
+
+Requires:
+- [\`bar::test\`](#bar___)
+- [\`baz::a\`](#baz__a)
+- \`bla\`
+- \`(x) => 'blub::\${x}'\`
+
+foo docs
+
+<a name="bar___"></a>
+## \`bar::*\`
+
+bar docs
+
+<a name="baz__a"></a>
+## \`baz::a\`
+
+baz docs`);
+});

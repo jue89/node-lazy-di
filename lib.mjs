@@ -34,13 +34,22 @@ export class Leaf {
 		this.docs = docs;
 	}
 
-	genDocs () {
+	genDocs ({genAnchor, findAnchor} = {}) {
+		genAnchor ||= () => undefined;
+		findAnchor ||= () => undefined;
+		const anchor = genAnchor(this.provides);
+		function reqToListItem (req) {
+			const name = req.toString().replace(/`/g, '\'');
+			const anchor = findAnchor(name);
+			return anchor ? `- [\`${name}\`](#${anchor})` : `- \`${name}\``;
+		}
 		return trimDocs(`
+			${anchor ? `<a name="${anchor}"></a>` : ''}
 			## \`${this.provides}\`
 
 			${this.requires.length > 0 ?  trimDocs(`
 				Requires:
-				${this.requires.map((r) => `- \`${r}\``).join('\n')}
+				${this.requires.map(reqToListItem).join('\n')}
 			`) : ''}
 
 			${trimDocs(this.docs || '*Undocumented*')}
@@ -144,10 +153,24 @@ export default class Library {
 	}
 
 	genDocs (preamble = '# Documentation') {
+		function genAnchor (name) {
+			return name.toLowerCase().replace(/:/g, '_').replace(/\*/, '_');
+		}
+
+		const list = this.ls();
+		const anchors = list.map(([name]) => {
+			return [new RegExp(name.replace(/\*$/, '.*')), genAnchor(name)];
+		});
+
+		function findAnchor (name) {
+			const item = anchors.find(([regexp]) => regexp.test(name));
+			return item ? item[1] : undefined;
+		}
+
 		return trimDocs(`
 			${trimDocs(preamble)}
 
-			${this.ls().map(([_name, item]) => item.genDocs()).join('\n\n')}
+			${this.ls().map(([_name, item]) => item.genDocs({genAnchor, findAnchor})).join('\n\n')}
 		`);
 	}
 }
