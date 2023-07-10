@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/jue89/node-lazy-di/compare/v1.1.1...v1.2.0) (2023-07-10)
+
+
+### Features
+
+* **lib:** add docs geneator ([1f7995f](https://github.com/jue89/node-lazy-di/commit/1f7995f3ccfd386e1b054711a774f7270bb6dd28))
+* **lib:** generate full docs MD file with anchors ([cebf4b3](https://github.com/jue89/node-lazy-di/commit/cebf4b3ed3a44df10d1166ea5ca0191a84e70b2c)), closes [#4](https://github.com/jue89/node-lazy-di/issues/4)
+* **lib:** list available modules ([e99b0e8](https://github.com/jue89/node-lazy-di/commit/e99b0e80e44b2bb03bed27cc7668b2f66b23aa8b))
+
 ### [1.1.1](https://github.com/jue89/node-lazy-di/compare/v1.1.0...v1.1.1) (2023-06-30)
 
 
