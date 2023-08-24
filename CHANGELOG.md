@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/jue89/node-lazy-di/compare/v1.2.0...v1.3.0) (2023-08-24)
+
+
+### Features
+
+* **loader:** resolve placeholder with file name ([69b5402](https://github.com/jue89/node-lazy-di/commit/69b54028e70c9edca427663fd118c8f5e8b1858f)), closes [#8](https://github.com/jue89/node-lazy-di/issues/8)
+
 ## [1.2.0](https://github.com/jue89/node-lazy-di/compare/v1.1.1...v1.2.0) (2023-07-10)
 
 
