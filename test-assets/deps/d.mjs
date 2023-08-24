@@ -1,4 +1,4 @@
 export default {
-	provides: 'deps::d',
+	provides: 'deps::?',
 	factory: () => 'd'
 };

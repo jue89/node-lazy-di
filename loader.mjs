@@ -1,10 +1,18 @@
 import assert from 'node:assert';
 import {readdir} from 'fs/promises';
-import {isAbsolute, join} from 'path';
+import {isAbsolute, join, extname, basename} from 'path';
 
 function appendItem (lib, file, item, opts) {
 	try {
-		lib.add(item.default !== undefined ? item.default : item, opts);
+		// Normalize module definition and make it writable
+		item = {...(item.default !== undefined ? item.default : item)};
+
+		// Replace placeholders
+		const ext = extname(file);
+		const base = basename(file, ext);
+		item.provides = item.provides.replace(/\?/g, base);
+
+		lib.add(item, opts);
 	} catch (err) {
 		throw new Error(`Cannot load ${file}: ${err.message}`);
 	}
