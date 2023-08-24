@@ -50,6 +50,9 @@ export function addEnvLoader (lib) {
 export function addExtDepLoader (lib) {
 	lib.add({
 		provides: 'ext::*',
+		docs: `
+			Wrapper for loading ES6 modules.
+		`,
 		factory: async (deps, name) => await import(name)
 	});
 }
