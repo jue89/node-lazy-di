@@ -86,6 +86,11 @@ test('resolve group of dependencies', async () => {
 	assert.equal(await lib.get('baz'), true);
 });
 
+test('resolve empty groups', async () => {
+	const lib = new Library();
+	assert.deepStrictEqual(await lib.get('bar::*'), []);
+});
+
 test('resolve catch-all dependency', async () => {
 	const lib = new Library();
 	lib.add({provides: 'foo::bar', factory: () => true});

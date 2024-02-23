@@ -58,7 +58,7 @@ export class Leaf {
 }
 
 export class Branch {
-	fetchBranch (path, autoCreate = false) {
+	fetchBranch (path) {
 		const [cur, ...remainder] = path;
 		if (cur === undefined) {
 			return this;
@@ -66,13 +66,11 @@ export class Branch {
 
 		assert(cur !== WILDCARD, '* must not be used for branch names');
 
-		if (autoCreate && this[cur] === undefined) {
+		if (this[cur] === undefined) {
 			this[cur] = new Branch();
 		}
 
-		assert(this[cur] instanceof Branch, `branch ${cur} not found`);
-
-		return this[cur].fetchBranch(remainder, autoCreate);
+		return this[cur].fetchBranch(remainder);
 	}
 
 	getAllLeaves () {
@@ -103,7 +101,7 @@ export default class Library {
 		const leaf = new Leaf(item);
 		const path = leaf.provides.split(DELIMITER);
 		const itemName = path.pop();
-		const branch = this.root.fetchBranch(path, true);
+		const branch = this.root.fetchBranch(path);
 		branch.addLeaf(itemName, leaf, opts);
 		return this;
 	}
