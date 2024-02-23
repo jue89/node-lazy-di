@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/jue89/node-lazy-di/compare/v1.3.0...v1.4.0) (2024-02-23)
+
+
+### Features
+
+* **lib:** allow ignoring lib items ([ecf9473](https://github.com/jue89/node-lazy-di/commit/ecf94739c31bd0b342c18e8c7d42206235241c34)), closes [#10](https://github.com/jue89/node-lazy-di/issues/10)
+* **lib:** allow requiring empty groups ([91eac71](https://github.com/jue89/node-lazy-di/commit/91eac71fa3fba14f9b9da09ce512b14119af2c1a)), closes [#11](https://github.com/jue89/node-lazy-di/issues/11)
+* **lib:** sort items by name on wildcard fetch ([67dbedb](https://github.com/jue89/node-lazy-di/commit/67dbedb23056d289ee4bd6c7c5106cc0a947156e)), closes [#9](https://github.com/jue89/node-lazy-di/issues/9)
+
 ## [1.3.0](https://github.com/jue89/node-lazy-di/compare/v1.2.0...v1.3.0) (2023-08-24)
 
 
