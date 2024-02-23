@@ -30,8 +30,7 @@ export async function loadDir (lib, dir, opts) {
 	assert(isAbsolute(dir), 'paths must be absolute');
 
 	const files = (await readdir(dir))
-		.filter((file) => FILE_REGEXP.test(file))
-		.sort();
+		.filter((file) => FILE_REGEXP.test(file));
 
 	const items = await Promise.all(files.map(async (file) => {
 		const path = join(dir, file);

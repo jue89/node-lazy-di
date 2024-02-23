@@ -75,7 +75,12 @@ export class Branch {
 
 	getAllLeaves () {
 		return Object.entries(this)
-			.filter(([k, v]) => k !== WILDCARD && v instanceof Leaf);
+			.filter(([k, v]) => k !== WILDCARD && v instanceof Leaf)
+			.sort(([a], [b]) => {
+				if (a < b) return -1;
+				if (a > b) return 1;
+				return 0;
+			});
 	}
 
 	getLeaf (name) {

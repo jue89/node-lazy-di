@@ -91,6 +91,13 @@ test('resolve empty groups', async () => {
 	assert.deepStrictEqual(await lib.get('bar::*'), []);
 });
 
+test('sort groups by item name', async () => {
+	const lib = new Library();
+	lib.add({provides: 'bar::b', factory: () => 42});
+	lib.add({provides: 'bar::a', factory: () => 42});
+	assert.deepStrictEqual(await lib.get('bar::*'), [['a', 42], ['b', 42]]);
+});
+
 test('resolve catch-all dependency', async () => {
 	const lib = new Library();
 	lib.add({provides: 'foo::bar', factory: () => true});
