@@ -98,6 +98,12 @@ test('sort groups by item name', async () => {
 	assert.deepStrictEqual(await lib.get('bar::*'), [['a', 42], ['b', 42]]);
 });
 
+test('ignore item', async () => {
+	const lib = new Library();
+	lib.add({ignore: true, provides: 'a', factory: () => {}});
+	await assert.rejects(() => lib.get('a'));
+});
+
 test('resolve catch-all dependency', async () => {
 	const lib = new Library();
 	lib.add({provides: 'foo::bar', factory: () => true});

@@ -103,6 +103,8 @@ export default class Library {
 	}
 
 	add (item, opts = {}) {
+		assert(typeof item === 'object', 'Must be an object');
+		if (item.ignore) return this;
 		const leaf = new Leaf(item);
 		const path = leaf.provides.split(DELIMITER);
 		const itemName = path.pop();
